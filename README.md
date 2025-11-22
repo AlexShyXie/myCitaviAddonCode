@@ -53,7 +53,9 @@ Citavi 插件开发教程项目，提供插件开发的示例代码和文档说�
 像 EndNote 一样对比重复文件，帮助用户识别和管理重复的参考文献条目。
 
 效果如下：
+
 ![](vx_images/42724170397680.png)
+
 ![](vx_images/32762280735194.png)
 
 ## JumpToLastPositionAfterActionExecutionAddon
@@ -226,6 +228,7 @@ Note: 将插件文件拷贝到 Addon folder, 没有二级文件夹.
 - **工作流分离**: 将“标记”和“摘录”两个步骤分开，提升文献管理的灵活性。
 
 ![](vx_images/34885965566581.png)
+
 ![](vx_images/156087460968243.png)
 
 ## TranslateGPTInCitavi
