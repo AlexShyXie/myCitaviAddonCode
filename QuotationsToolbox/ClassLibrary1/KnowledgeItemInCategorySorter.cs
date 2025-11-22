@@ -61,7 +61,7 @@ namespace QuotationsToolbox
                     firstKnowledgeItem = knowledgeItems[i];
                 }
 
-                CreateSubheadings(knowledgeItems, category, true);
+                CreateSubheadings(knowledgeItems, category, false);
             }
         }
         static void CreateSubheadings(List<KnowledgeItem> knowledgeItems, Category category, bool overwriteSubheadings)
@@ -82,7 +82,9 @@ namespace QuotationsToolbox
             {
                 if (!overwriteSubheadings)
                 {
-                    DialogResult result = MessageBox.Show("The filtered list of knowledge items in the category \"" + category.Name + "\" already contains sub-headings.\r\n\r\nIf you continue, these sub-headings will be removed first.\r\n\r\nContinue?", "Citavi", MessageBoxButtons.YesNo);
+                    //DialogResult result = MessageBox.Show("The filtered list of knowledge items in the category \"" + category.Name + "\" already contains sub-headings.\r\n\r\nIf you continue, these sub-headings will be removed first.\r\n\r\nContinue?", "Citavi", MessageBoxButtons.YesNo);
+                    DialogResult result = MessageBox.Show("类别 \"" + category.Name + "\" 中的知识条目列表已包含子标题。\r\n\r\n如果继续，这些子标题将被首先删除。\r\n\r\n是否继续？", "Citavi", MessageBoxButtons.YesNo);
+
                     if (result == DialogResult.No) return;
                 }
 

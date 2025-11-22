@@ -107,14 +107,14 @@ namespace QuotationsToolbox
             var commandBarButtonOpenKnowledgeItemAttachment = knowledgeOrganizerKnowledgeItemsContextMenu.AddCommandbarButton("OpenKnowledgeItemAttachment", "在新窗口中打开附件");
             commandBarButtonOpenKnowledgeItemAttachment.HasSeparator = true;
             knowledgeOrganizerKnowledgeItemsContextMenu.AddCommandbarButton("SelectLinkedKnowledgeItem", "跳转到链接的知识项");
-            var commandbarButtonKnowledgeItemsSortInCategory = knowledgeOrganizerKnowledgeItemsContextMenu.AddCommandbarButton("SortKnowledgeItemsInSelection", "在当前category中按参考文献和位置对所选知识项排序");
+            var commandbarButtonKnowledgeItemsSortInCategory = knowledgeOrganizerKnowledgeItemsContextMenu.AddCommandbarButton("SortKnowledgeItemsInSelection", "在当前category中按参考文献和\n    位置对所选知识项排序（单纯排序）");
 
             // Knowledge Organizer Category Pop-Up Menu
 
             var knowledgeOrganizerCategoriesColumnContextMenu = CommandbarMenu.Create(mainForm.GetKnowledgeOrganizerCategoriesCommandbarManager().ToolbarsManager.Tools["KnowledgeOrganizerCategoriesColumnContextMenu"] as PopupMenuTool);
 
 
-            var commandbarButtonSortKnowledgeItemsInCategory = knowledgeOrganizerCategoriesColumnContextMenu.AddCommandbarButton("SortKnowledgeItemsInCategory", "在此category中按参考文献和位置对所有知识项排序");
+            var commandbarButtonSortKnowledgeItemsInCategory = knowledgeOrganizerCategoriesColumnContextMenu.AddCommandbarButton("SortKnowledgeItemsInCategory", "在此category中按参考文献和\n    位置对所有知识项排序（添加Subheading）");
             commandbarButtonSortKnowledgeItemsInCategory.HasSeparator = true;
 
             // Fin
