@@ -116,6 +116,8 @@ MacroManager插件加入AutoRef插件的功能，在MacroManager的edit和run运
 
 引文工具箱，提供引文管理和格式化的增强功能，帮助用户更高效地处理引用文献。
 
+> 已适配6.18和7.2
+
 ## ReferenceGridFormWorkSpaceEditor
 
 这个插件允许您将列和分组的选择保存为一个工作区。
