@@ -4,7 +4,6 @@ using System.Windows.Forms;
 using SwissAcademic.Citavi.Shell;
 using SwissAcademic.Controls;
 using System.Reflection;
-using Infragistics.Win.UltraWinGrid;
 
 namespace SingleLineScrollGrid
 {
@@ -37,18 +36,15 @@ namespace SingleLineScrollGrid
                 // 1. 标记事件已处理
                 ((HandledMouseEventArgs)e).Handled = true;
 
-                // 2. 计算滚动方向
-                int scrollDirection = e.Delta > 0 ? -1 : 1;
-
                 try
                 {
-                    // 3. 获取 DisplayLayout
+                    // 2. 获取 DisplayLayout
                     var displayLayoutProperty = gridControl.GetType().GetProperty("DisplayLayout");
                     if (displayLayoutProperty == null) return;
                     var displayLayout = displayLayoutProperty.GetValue(gridControl);
                     if (displayLayout == null) return;
 
-                    // 4. 获取 RowScrollRegions
+                    // 3. 获取 RowScrollRegions
                     var rowScrollRegionsProperty = displayLayout.GetType().GetProperty("RowScrollRegions");
                     if (rowScrollRegionsProperty == null) return;
                     var rowScrollRegions = rowScrollRegionsProperty.GetValue(displayLayout);
@@ -61,42 +57,34 @@ namespace SingleLineScrollGrid
                     {
                         if (region == null) continue;
 
-                        // === 方案：使用 ScrollBarInfo 获取精确边界 ===
-                        // 这个属性是 public 的，且包含准确的 Maximum
+                        // 4. 调用 OnScroll 方法模拟点击滚动条按钮
+                        // 关键：使用 ScrollEventType.SmallDecrement (向上) 或 SmallIncrement (向下)
+                        // 这完全模拟了点击滚动条上下箭头按钮的行为，Grid 会自动处理边界！
+
+                        // 获取 ScrollBarInfo (这是 OnScroll 的第一个参数)
                         var scrollBarInfoProperty = region.GetType().GetProperty("ScrollBarInfo", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                        if (scrollBarInfoProperty == null) break;
+                        var scrollBarInfo = scrollBarInfoProperty.GetValue(region);
+                        if (scrollBarInfo == null) break;
 
-                        if (scrollBarInfoProperty != null)
+                        // 获取 ScrollEventType 类型 (System.Windows.Forms 命名空间)
+                        var scrollEventTypeType = typeof(ScrollEventType);
+
+                        // 确定 ScrollEventType 值
+                        // Delta > 0: 滚轮向上 -> 对应点击滚动条的"向上按钮" -> SmallDecrement
+                        // Delta < 0: 滚轮向下 -> 对应点击滚动条的"向下按钮" -> SmallIncrement
+                        var scrollEventTypeValue = e.Delta > 0 ? ScrollEventType.SmallDecrement : ScrollEventType.SmallIncrement;
+
+                        // 获取 OnScroll 方法
+                        // 参数列表: void OnScroll(ScrollBarInfo scrollBar, ScrollEventType scrollType)
+
+                        // 注意：OnScroll 是 protected 方法，必须用 NonPublic 找到它
+                        var onScrollMethod = region.GetType().GetMethod("OnScroll", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public, null, new Type[] { scrollBarInfo.GetType(), typeof(ScrollEventType) }, null);
+
+                        if (onScrollMethod != null)
                         {
-                            var scrollBarInfo = scrollBarInfoProperty.GetValue(region);
-                            if (scrollBarInfo != null)
-                            {
-                                // 获取当前值、最大值、最小值
-                                var valueProp = scrollBarInfo.GetType().GetProperty("Value");
-                                var maxProp = scrollBarInfo.GetType().GetProperty("Maximum");
-                                var minProp = scrollBarInfo.GetType().GetProperty("Minimum");
-
-                                if (valueProp != null && maxProp != null)
-                                {
-                                    int currentValue = (int)valueProp.GetValue(scrollBarInfo);
-                                    int maximum = (int)maxProp.GetValue(scrollBarInfo);
-                                    int minimum = minProp != null ? (int)minProp.GetValue(scrollBarInfo) : 0;
-
-                                    // 计算新位置
-                                    int newPosition = currentValue + scrollDirection;
-
-                                    // 关键：边界检查，确保在 [Minimum, Maximum] 范围内
-                                    // 这样到底或到顶时就动不了了
-                                    if (newPosition >= minimum && newPosition <= maximum)
-                                    {
-                                        // 获取 ScrollPosition 属性并设置新值
-                                        var scrollPositionProperty = region.GetType().GetProperty("ScrollPosition");
-                                        if (scrollPositionProperty != null)
-                                        {
-                                            scrollPositionProperty.SetValue(region, newPosition);
-                                        }
-                                    }
-                                }
-                            }
+                            // 调用 OnScroll
+                            onScrollMethod.Invoke(region, new object[] { scrollBarInfo, scrollEventTypeValue });
                         }
 
                         break; // 只处理第一个区域
