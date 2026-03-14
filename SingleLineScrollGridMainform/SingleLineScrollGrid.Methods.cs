@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingleLineScrollGrid
 {
-    partial class SingleLineScrollGrid
+    partial class SingleLineScrollGridMainform
     {
         /// <summary>
         /// 从 Settings 字典加载所有设置

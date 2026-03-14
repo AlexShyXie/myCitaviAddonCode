@@ -4,14 +4,13 @@ using System.Windows.Forms;
 using SwissAcademic.Citavi.Shell;
 using SwissAcademic.Controls;
 using System.Reflection;
-using SingleLineScrollGrid;
 
 namespace SingleLineScrollGrid
 {
     /// <summary>
     /// 为 MainForm 中的 Grid 控件添加鼠标滚轮单行滚动功能，支持分界面独立配置。
     /// </summary>
-    public partial class SingleLineScrollGrid : CitaviAddOn<MainForm>
+    public partial class SingleLineScrollGridMainform : CitaviAddOn<MainForm>
     {
         #region OnHostingFormLoaded - 初始化和绑定
 

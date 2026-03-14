@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SingleLineScrollGrid
 {
-    partial class SingleLineScrollGrid
+    partial class SingleLineScrollGridMainform
     {
         // ==================== 常量定义 ====================
         // 设置键名 - 确保全局唯一
