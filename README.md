@@ -88,6 +88,16 @@ MacroManager插件加入AutoRef插件的功能，在MacroManager的edit和run运
 
 ![](vx_images/582608110269411.png)
 
+
+## PDFSidebarAnnotation
+集中视图：在 Citavi 侧边栏添加一个新标签页，列表展示当前 PDF 的所有高亮和注释。
+智能识别：自动识别已关联 Knowledge Item 的注释（Direct Quotation, Indirect Quotation, Comment 等）。自动识别未关联的纯高亮。
+
+使用手动刷新的方法，相对稳定
+
+![](vx_images/506494733648676.png)
+
+
 ## PDFSidebarTranslation PDF侧边栏翻译
 
 **实时划词翻译**
@@ -149,7 +159,7 @@ Note: 将插件文件拷贝到 Addon folder, 没有二级文件夹.
 专门适配Citavi 6.18版本的PDF预览滚动速度修复插件。
 
 ## SearchInActiveGroup
-
+适配7.2
 在活动的群组或分类中进行高级搜索，就是打开高级搜索界面并自动填写群组/分类名称。
 
 ### SearchInActiveCategory
@@ -206,10 +216,18 @@ Note: 将插件文件拷贝到 Addon folder, 没有二级文件夹.
 
 ![ShowReferenceFromTableView](vx_images/ShowReferenceFromTableView.gif)
 
+
+## SingleLineScrollGridMainform
+在主界面的参考文献列表，滚动鼠标滚轮一次就会向下滚动系统设置的行数，如果我在win系统里设置了鼠标滚动一下是跳6行，那么在citavi中也会跳6行文献，跳跃度非常大，很不舒服。
+这个插件就是设置滚动鼠标滚轮的时候强制只滚动1行
+
+## SingleLineScrollGridTableView
+这个插件就是在TableView界面，设置滚动鼠标滚轮的时候强制只滚动1行
+
 ## SortKnowledgeItemsInSelectionAndCreateSubheadings
 
 对Knowledge里选中的知识点按文献、PDF页码这两个方面进行排序，然后添加在每个文献的Knowledge前面添加一个subheading。
-> 是QuotationsToolbox的功能
+> 是QuotationsToolbox的功能，QuotationsToolbox已经修复了，所以这个插件不需要了
 
 ## SwitchToMainWindow
 
