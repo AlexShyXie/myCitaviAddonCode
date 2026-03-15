@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="PDFSidebarAnnotation.AnnotationListControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- 标题栏 -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,5">
+            <TextBlock Text="当前文件Annot列表" FontWeight="Bold" VerticalAlignment="Center"/>
+            <Button Content="刷新" Click="RefreshButton_Click" Margin="10,0,0,0" Padding="5,2"/>
+        </StackPanel>
+
+        <!-- 列表区域 -->
+        <ListBox Grid.Row="1" Name="AnnotationListBox" 
+                 SelectionChanged="AnnotationListBox_SelectionChanged" 
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+
+            <!-- 【关键修复】强制每项拉伸到列表宽度 -->
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <!-- 类型标签：宽度自适应内容 -->
+                            <ColumnDefinition Width="Auto"/>
+                            <!-- 内容：宽度占满剩余空间，关键设置 -->
+                            <ColumnDefinition Width="*"/>
+                            <!-- 页码：宽度自适应内容 -->
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- 类型标签 (左对齐) -->
+                        <TextBlock Grid.Column="0" 
+                                   Text="{Binding Type}" 
+                                   FontWeight="Bold" 
+                                   Margin="0,0,8,0" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Left"/>
+
+                        <!-- 内容预览 (自动填充中间) -->
+                        <TextBlock Grid.Column="1" 
+                                   Text="{Binding Content}" 
+                                   TextWrapping="Wrap" 
+                                   MaxHeight="40" 
+                                   ToolTip="{Binding ToolTipText}"
+                                   Margin="8,0,8,0"/>
+
+                        <!-- 页码 (右对齐) -->
+                        <TextBlock Grid.Column="2" 
+                                   Text="{Binding PageNumber, StringFormat='p{0}'}" 
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="8,0,0,0"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+</UserControl>
