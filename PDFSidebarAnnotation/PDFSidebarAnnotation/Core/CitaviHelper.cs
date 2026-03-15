@@ -100,7 +100,7 @@ namespace PDFSidebarAnnotation
                     else
                     {
                         // 2. 没有知识条目关联，visible是True的，就是灰色高亮
-                        item.Type = "HiU";
+                        item.Type = "Udl";
                         item.Content = "NoKnowledge Underline";
                     }
 
@@ -121,7 +121,7 @@ namespace PDFSidebarAnnotation
                 case QuotationType.IndirectQuotation:
                     return "Ind";
                 case QuotationType.QuickReference:
-                    return "HiR"; // 实际上Highlight in red是QuickReference，然后visible是False
+                    return "QiR"; // 实际上Highlight in red是QuickReference，然后visible是False
                 case QuotationType.Comment:
                     return "Cmt";
                 case QuotationType.Summary:
